@@ -1,3 +1,5 @@
+"use client";
+
 import { Card, CardContent } from "./ui/card";
 import Image from "next/image";
 import { Button } from "./ui/button";
@@ -10,7 +12,7 @@ const Header = () => {
         <Image src="/logo.png" alt="Logo teste" height={1} width={25} />
 
         <Button variant="outline" size="icon">
-          <MenuIcon size={18} />
+          <MenuIcon size={16} />
         </Button>
       </CardContent>
     </Card>

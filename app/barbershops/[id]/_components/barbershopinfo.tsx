@@ -38,7 +38,7 @@ const BarbershopInfo = ({ barbershop }: BarbershopInfoProps) => {
               className="z-50 top-4 right-4 absolute"
             >
               <MenuIcon />
-            </Button> 
+            </Button>
           </SheetTrigger>
           <SheetContent className="p-0">
             <SideMenu />

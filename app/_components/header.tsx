@@ -3,7 +3,14 @@
 import { Card, CardContent } from "./ui/card";
 import Image from "next/image";
 import { Button } from "./ui/button";
-import { LogInIcon, LogOutIcon, MenuIcon, UserIcon } from "lucide-react";
+import {
+  CalendarIcon,
+  HomeIcon,
+  LogInIcon,
+  LogOutIcon,
+  MenuIcon,
+  UserIcon,
+} from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -13,12 +20,13 @@ import {
 } from "./ui/sheet";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Avatar, AvatarImage } from "./ui/avatar";
+import Link from "next/link";
 
 const Header = () => {
   const { data, status } = useSession();
 
   const handleLogoutClick = () => signOut();
-  const handleLoginClick = () => signIn();
+  const handleLoginClick = () => signIn("google");
 
   return (
     <Card>
@@ -58,12 +66,33 @@ const Header = () => {
                   <UserIcon size={32} />
                   <h2 className="font-bold">Olá. Faça seu Login!</h2>
                 </div>
-                <Button onClick={handleLoginClick} variant="secondary" className="w-full justify-start">
+                <Button
+                  onClick={handleLoginClick}
+                  variant="secondary"
+                  className="w-full justify-start"
+                >
                   <LogInIcon className="mr-2" size={18} />
                   Fazer Login
                 </Button>
               </div>
             )}
+
+            <div className="flex flex-col gap-3 px-5">
+              <Button asChild variant="outline" className="justify-start">
+                <Link href="/">
+                  <HomeIcon size={18} className="mr-2" />
+                  Inicio
+                </Link>
+              </Button>
+              {data?.user && (
+                <Button variant="outline" className="justify-start" asChild>
+                  <Link href="/bookings">
+                    <CalendarIcon size={18} className="mr-2" />
+                    Agendamentos
+                  </Link>
+                </Button>
+              )}
+            </div>
           </SheetContent>
         </Sheet>
       </CardContent>

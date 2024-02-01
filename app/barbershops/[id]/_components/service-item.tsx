@@ -52,7 +52,11 @@ const ServiceItem = ({
       return;
     }
     const refreshAvailablehours = async () => {
+<<<<<<< HEAD
       const _dayBookings = await getDayBookingss(barbershop.id, date);
+=======
+      const _dayBookings = await getDayBookingss(date);
+>>>>>>> 35220b98e1b8f0ca4629660db55599ab5026798c
 
       setDayBookings(_dayBookings);
     };

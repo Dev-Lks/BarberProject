@@ -20,6 +20,7 @@ import { generateDayTimeList } from "../_helpers/hours";
 import { format, setHours, setMinutes } from "date-fns";
 import { saveBooking } from "../_actions/save-booking";
 import { Loader2 } from "lucide-react";
+import { Toaster, toast } from "sonner";
 
 interface ServiceItemProps {
   barbershop: Barbershop;
@@ -38,6 +39,7 @@ const ServiceItem = ({
   const [hour, setHour] = useState<string | undefined>();
 
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
+  const [sheetIsOpen, setShetIsOpen] = useState(false);
 
   const handleDateClick = (date: Date | undefined) => {
     setDate(date);
@@ -70,6 +72,14 @@ const ServiceItem = ({
         barbershopId: service.barbershopId,
         date: newDate,
         userId: (data.user as any).id,
+      });
+      setShetIsOpen(false);
+      toast("Reserva realizada com Sucesso!", {
+        description: format(newDate, "'Para' dd 'de' MMM 'ás' HH ':' mm."),
+        action: {
+          label: "Visualizar",
+          onClick: () => console.log("clicked"),
+        },
       });
     } catch (error) {
       console.error(error);
@@ -108,7 +118,7 @@ const ServiceItem = ({
                   currency: "BRL",
                 }).format(Number(service.price))}
               </p>
-              <Sheet>
+              <Sheet open={sheetIsOpen} onOpenChange={setShetIsOpen}>
                 <SheetTrigger asChild>
                   <Button onClick={handleBooking} variant="secondary">
                     Reservar
@@ -209,7 +219,9 @@ const ServiceItem = ({
                       onClick={handleBookingSubmit}
                       disabled={(!hour && !date) || submitIsLoading}
                     >
-                      { submitIsLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                      {submitIsLoading && (
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      )}
                       Confirmar Reserva
                     </Button>
                   </SheetFooter>

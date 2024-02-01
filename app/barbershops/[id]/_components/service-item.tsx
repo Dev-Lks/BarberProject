@@ -20,8 +20,8 @@ import { generateDayTimeList } from "../_helpers/hours";
 import { format, setHours, setMinutes } from "date-fns";
 import { saveBooking } from "../_actions/save-booking";
 import { Loader2 } from "lucide-react";
-import { Toaster, toast } from "sonner";
-
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 interface ServiceItemProps {
   barbershop: Barbershop;
   service: Service;
@@ -33,6 +33,8 @@ const ServiceItem = ({
   service,
   isAuthenticated,
 }: ServiceItemProps) => {
+  const router = useRouter();
+
   const { data } = useSession();
   const [date, setDate] = useState<Date | undefined>(undefined);
 
@@ -74,16 +76,19 @@ const ServiceItem = ({
         userId: (data.user as any).id,
       });
       setShetIsOpen(false);
+      setHour(undefined);
+      setDate(undefined);
       toast("Reserva realizada com Sucesso!", {
         description: format(newDate, "'Para' dd 'de' MMM 'ás' HH ':' mm."),
         action: {
           label: "Visualizar",
-          onClick: () => console.log("clicked"),
+          onClick: () => router.push("/bookings"),
         },
       });
     } catch (error) {
       console.error(error);
     } finally {
+      ;
       setSubmitIsLoading(false);
     }
   };

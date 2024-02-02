@@ -11,21 +11,25 @@ import { getServerSession } from "next-auth";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
-  const barbershops = await db.barbershop.findMany({});
-  const bookings = session?.user
-    ? await db.booking.findMany({
-        where: {
-          userId: (session as any).id,
-        },
-        include: {
-          service: true,
-          barbershop: true,
-        },
-      })
-    : [];
-  const confirmedBookings = bookings.filter((booking) =>
-    isFuture(booking.date)
-  );
+
+  const [barbershops, confirmedBookings] = await Promise.all([
+    db.barbershop.findMany({}),
+    session?.user
+      ? await db.booking.findMany({
+          where: {
+            userId: (session.user as any).id,
+            date: {
+              gte: new Date(),
+            },
+          },
+          include: {
+            service: true,
+            barbershop: true,
+          },
+        })
+      : Promise.resolve([]),
+  ]);
+
   return (
     <div>
       <Header />
@@ -44,11 +48,11 @@ export default async function Home() {
       </div>
 
       {confirmedBookings.length >= 1 && (
-        <div className="px-5 pt-3">
-          <h2 className="text-xs uppercase text-gray-400 font-bold mb-3">
+        <div className=" pt-3">
+          <h2 className="text-xs pl-5 uppercase text-gray-400 font-bold mb-3">
             Agendamentos
           </h2>
-          <div className="flex overflow-x-auto gap-3 [&::-webkit-scrollbar]:hidden [scrollbar-width:none]">
+          <div className="flex px-5 overflow-x-auto gap-3 [&::-webkit-scrollbar]:hidden [scrollbar-width:none]">
             {confirmedBookings.map((booking) => (
               <BookingItem key={booking.id} booking={booking} />
             ))}

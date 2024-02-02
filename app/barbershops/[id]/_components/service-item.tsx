@@ -23,7 +23,8 @@ import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { getDayBookingss } from "../_actions/get-day-bookings";
-import { revalidatePath } from "next/cache";
+
+import { refreshBookings } from "@/app/_actions/refresh-bookings";
 interface ServiceItemProps {
   barbershop: Barbershop;
   service: Service;
@@ -101,6 +102,7 @@ const ServiceItem = ({
         action: {
           label: "Visualizar",
           onClick: () => {
+            refreshBookings();
             router.push("/bookings");
           },
         },

@@ -58,7 +58,7 @@ const ServiceItem = ({
     };
 
     refreshAvailablehours();
-  }, [date]);
+  }, [barbershop.id, date]);
 
   const handleDateClick = (date: Date | undefined) => {
     setDate(date);

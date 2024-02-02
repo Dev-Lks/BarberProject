@@ -37,6 +37,7 @@ const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
               objectFit: "cover",
             }}
             fill
+            sizes="icon"
             className="rounded-2xl"
           />
         </div>

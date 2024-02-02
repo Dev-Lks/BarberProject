@@ -41,38 +41,46 @@ const BookingsDetailsPage = async () => {
   ]);
 
   const numConfirmedBookings = confirmedBookings.length;
+  const numfinishedBookings = finishedBookings.length;
 
   return (
     <>
       <Header />
 
-      {numConfirmedBookings >= 1 && (
-        <div className="px-5 py-6">
-          <h1 className="tex-sm text-bold">Agendamentos</h1>
+      <div className="px-5 py-6">
+        <h1 className="tex-sm text-bold">Agendamentos</h1>
 
-          <h2 className="text-sm uppercase font-bold mb-3 mt-6 text-gray-400">
-            Confirmados
-          </h2>
+        {numConfirmedBookings >= 1 && (
+          <div>
+            <h2 className="text-sm uppercase font-bold mb-3 mt-6 text-gray-400">
+              Confirmados
+            </h2>
 
-          <div className="flex flex-col gap-3">
-            {confirmedBookings.map((booking) => (
-              <BookingItem key={booking.id} booking={booking} />
-            ))}
+            <div className="flex flex-col gap-3">
+              {confirmedBookings.map((booking) => (
+                <BookingItem key={booking.id} booking={booking} />
+              ))}
+            </div>
           </div>
+        )}
 
-          <h2 className="text-sm uppercase font-bold mb-3 mt-6 text-gray-400">
-            Finalizados
-          </h2>
-
-          <div className="flex flex-col gap-3">
-            {finishedBookings.map((booking) => (
-              <BookingItem key={booking.id} booking={booking} />
-            ))}
+        {numfinishedBookings >= 1 && (
+          <div>
+            <h2 className="text-sm uppercase font-bold mb-3 mt-6 text-gray-400">
+              Finalizados
+            </h2>
+            <div className="flex flex-col gap-3">
+              {finishedBookings.map((booking) => (
+                <BookingItem key={booking.id} booking={booking} />
+              ))}
+            </div>
           </div>
-        </div>
+        )}
+      </div>
+
+      {numConfirmedBookings <= 0 && numfinishedBookings <= 0 && (
+        <h1>Você ainda não possui nenhum agendamento</h1>
       )}
-
-      {numConfirmedBookings == 0 && <h1>Você ainda não possui agendamentos</h1>}
     </>
   );
 };

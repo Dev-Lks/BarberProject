@@ -23,6 +23,7 @@ import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { getDayBookingss } from "../_actions/get-day-bookings";
+import { revalidatePath } from "next/cache";
 interface ServiceItemProps {
   barbershop: Barbershop;
   service: Service;
@@ -99,7 +100,9 @@ const ServiceItem = ({
         description: format(newDate, "'Para' dd 'de' MMM 'ás' HH ':' mm."),
         action: {
           label: "Visualizar",
-          onClick: () => router.push("/bookings"),
+          onClick: () => {
+            router.push("/bookings");
+          },
         },
       });
     } catch (error) {

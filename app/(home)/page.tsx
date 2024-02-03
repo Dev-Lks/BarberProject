@@ -12,23 +12,29 @@ import { getServerSession } from "next-auth";
 export default async function Home() {
   const session = await getServerSession(authOptions);
 
-  const [barbershops, confirmedBookings] = await Promise.all([
-    db.barbershop.findMany({}),
-    session?.user
-      ? await db.booking.findMany({
-          where: {
-            userId: session.user.id,
-            date: {
-              gte: new Date(),
+  const [barbershops, recomendedbarbershops, confirmedBookings] =
+    await Promise.all([
+      db.barbershop.findMany({}),
+      db.barbershop.findMany({
+        orderBy: {
+          name: "asc",
+        },
+      }),
+      session?.user
+        ? await db.booking.findMany({
+            where: {
+              userId: session.user.id,
+              date: {
+                gte: new Date(),
+              },
             },
-          },
-          include: {
-            service: true,
-            barbershop: true,
-          },
-        })
-      : Promise.resolve([]),
-  ]);
+            include: {
+              service: true,
+              barbershop: true,
+            },
+          })
+        : Promise.resolve([]),
+    ]);
 
   return (
     <div>
@@ -78,7 +84,7 @@ export default async function Home() {
         </h2>
 
         <div className=" flex px-5 gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden [scrollbar-width:none]">
-          {barbershops.map((barbershop) => (
+          {recomendedbarbershops.map((barbershop) => (
             <BarbershopItem key={barbershop.id} barbershop={barbershop} />
           ))}
         </div>

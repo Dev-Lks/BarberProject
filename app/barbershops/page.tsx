@@ -31,7 +31,7 @@ const SearchPage = async ({ searchParams }: barberShopProps) => {
           <h2 className="uppercase text-gray-400 text-bold">
             RESULTADOS PARA &ldquo;{searchParams.search}&ldquo;
           </h2>
-          <div className="flex flex-col gap-3 mt-6">
+          <div className="flex gap-3 mt-6">
             {barbershops.map((barbershop) => (
               <BarbershopItem barbershop={barbershop} key={barbershop.id} />
             ))}

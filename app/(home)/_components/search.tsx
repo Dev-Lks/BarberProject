@@ -13,6 +13,7 @@ import { SearchIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   search: z
@@ -22,12 +23,13 @@ const formSchema = z.object({
 });
 
 const Search = () => {
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
 
   const handleSubmit = (data: z.infer<typeof formSchema>) => {
-    console.log(data);
+    router.push(`/barbershops?search=${data.search}`);
   };
   return (
     <div className="flex items-center gap-2">

@@ -6,7 +6,7 @@ import BookingItem from "../_components/booking-item";
 import BarbershopItem from "./_components/barbershop-item";
 import { db } from "../_lib/prisma";
 
-import { authOptions } from "@/app/_lib/authOptions";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 
 export default async function Home() {
@@ -17,7 +17,7 @@ export default async function Home() {
     session?.user
       ? await db.booking.findMany({
           where: {
-            userId: (session.user as any).id,
+            userId: session.user.id,
             date: {
               gte: new Date(),
             },

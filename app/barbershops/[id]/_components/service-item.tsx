@@ -47,8 +47,6 @@ const ServiceItem = ({
   const [sheetIsOpen, setShetIsOpen] = useState(false);
   const [dayBookings, setDayBookings] = useState<Booking[]>([]);
 
-  console.log({ dayBookings });
-
   useEffect(() => {
     if (!date) {
       return;

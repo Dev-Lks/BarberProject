@@ -20,6 +20,7 @@ import {
   DialogTrigger,
 } from "@/app/_components/ui/dialog";
 import { refreshBarbershop } from "../_actions/refresh-rates";
+import { toast } from "sonner";
 
 interface BarbershopInfoProps {
   barbershop: Barbershop;
@@ -63,6 +64,7 @@ const BarbershopInfo = ({ barbershop, ratings }: BarbershopInfoProps) => {
         barbershopId: barbershop.id,
       });
       refreshBarbershop();
+      toast.success("Avaliação enviada com sucesso!");
     }
   }, [selectedRating, session, barbershop]);
 
@@ -124,8 +126,8 @@ const BarbershopInfo = ({ barbershop, ratings }: BarbershopInfoProps) => {
               <Button>Deixe sua avaliação</Button>
             </DialogTrigger>
             <DialogContent>
-              <DialogHeader>
-                <DialogTitle className="text-center border-b border-solid border-secondary p-6">
+              <DialogHeader className="border-b border-solid border-secondary p-6 w-full">
+                <DialogTitle className="text-center">
                   Deixe sua Avaliação
                 </DialogTitle>
               </DialogHeader>

@@ -6,7 +6,7 @@ import BookingItem from "../_components/booking-item";
 import BarbershopItem from "./_components/barbershop-item";
 import { db } from "../_lib/prisma";
 
-import { authOptions } from "@/app/utils/authOptions";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 
 export default async function Home() {
@@ -55,25 +55,27 @@ export default async function Home() {
         </p>
       </div>
 
-      <div className="flex flex-col">
-        <div className="px-5 mt-6 lg:w-[35%]">
-          <Search />
-        </div>
 
-        <div className="lg:max-w-[35%] lg:w-[35%]  ">
-          {confirmedBookings.length >= 1 && (
-            <div className=" pt-3">
-              <h2 className="text-xs pl-5 uppercase text-gray-400 font-bold mb-3">
-                Agendamentos
-              </h2>
-              <div className="flex px-5 overflow-x-auto gap-3 [&::-webkit-scrollbar]:hidden [scrollbar-width:none] lg:gap-5">
-                {confirmedBookings.map((booking) => (
-                  <BookingItem key={booking.id} booking={booking} />
-                ))}
+        <div className="flex flex-col">
+          <div className="px-5 mt-6 lg:w-[35%]">
+            <Search />
+          </div>
+
+          <div className="lg:max-w-[35%] lg:w-[35%]  ">
+            {confirmedBookings.length >= 1 && (
+              <div className=" pt-3">
+                <h2 className="text-xs pl-5 uppercase text-gray-400 font-bold mb-3">
+                  Agendamentos
+                </h2>
+                <div className="flex px-5 overflow-x-auto gap-3 [&::-webkit-scrollbar]:hidden [scrollbar-width:none] lg:gap-5">
+                  {confirmedBookings.map((booking) => (
+                    <BookingItem key={booking.id} booking={booking} />
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+
       </div>
 
       <div className="mt-6">

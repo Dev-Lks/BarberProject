@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Badge } from "@/app/_components/ui/badge";
 import { Button } from "@/app/_components/ui/button";
@@ -46,7 +46,11 @@ const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
           <p className=" text-sm text-gray-400 truncate">
             {barbershop.address}
           </p>
-          <Button onClick={handleBookingClick} variant="secondary" className="w-full mt-3">
+          <Button
+            onClick={handleBookingClick}
+            variant="secondary"
+            className="w-full mt-3"
+          >
             Reservar
           </Button>
         </div>

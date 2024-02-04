@@ -28,6 +28,12 @@ const BarbershopDetailsPage = async ({
     },
   });
 
+  const ratings = await db.rating.findMany({
+    where: {
+      barbershopId: params.id,
+    },
+  });
+
   if (!barbershop) {
     //to-do return to home page
     return null;
@@ -35,7 +41,7 @@ const BarbershopDetailsPage = async ({
 
   return (
     <div>
-      <BarbershopInfo barbershop={barbershop} />
+      <BarbershopInfo ratings={ratings} barbershop={barbershop} />
 
       <div className="px-5 flex flex-col gap-4 py-6">
         {barbershop.services.map((service) => (

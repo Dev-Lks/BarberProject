@@ -3,21 +3,29 @@
 import SideMenu from "@/app/_components/side-menu";
 import { Button } from "@/app/_components/ui/button";
 import { Sheet, SheetTrigger, SheetContent } from "@/app/_components/ui/sheet";
-import { Barbershop } from "@prisma/client";
+import { Barbershop, Rating } from "@prisma/client";
 import { ChevronLeftIcon, MenuIcon, MapPinIcon, StarIcon } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 interface BarbershopInfoProps {
   barbershop: Barbershop;
+  ratings?: Rating[];
 }
 
-const BarbershopInfo = ({ barbershop }: BarbershopInfoProps) => {
+const BarbershopInfo = ({ barbershop, ratings }: BarbershopInfoProps) => {
   const router = useRouter();
 
   const handleBackClick = () => {
     router.replace("/");
   };
+
+  const totalRatingValue =
+    Array.isArray(ratings) && ratings.length
+      ? ratings.reduce((accumulator, rating) => accumulator + rating.value, 0) /
+        ratings.length
+      : 0;
+
   return (
     <div>
       <div className="h-[250px] w-full relative">
@@ -62,7 +70,9 @@ const BarbershopInfo = ({ barbershop }: BarbershopInfoProps) => {
         </div>
         <div className="flex items-cente gap-1 mt-2">
           <StarIcon className="text-primary " size={18} />
-          <p className="text-sm">5,0 (899 avaliações)</p>
+          <p className="text-sm">
+            {totalRatingValue} ({ratings?.length || 0}) Avaliações
+          </p>
         </div>
       </div>
     </div>

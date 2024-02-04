@@ -7,24 +7,64 @@ import { Barbershop, Rating } from "@prisma/client";
 import { ChevronLeftIcon, MenuIcon, MapPinIcon, StarIcon } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import RateBarbershop from "./rate-barbershop";
+import { useCallback, useMemo, useState } from "react";
+import { saveRating } from "@/app/_actions/rate";
+import { useSession } from "next-auth/react";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/app/_components/ui/dialog";
+import { refreshBarbershop } from "../_actions/refresh-rates";
 
 interface BarbershopInfoProps {
   barbershop: Barbershop;
   ratings?: Rating[];
 }
 
+const items: number[] = [...(new Array(5).keys() as any)];
+
 const BarbershopInfo = ({ barbershop, ratings }: BarbershopInfoProps) => {
+  const session = useSession();
   const router = useRouter();
 
-  const handleBackClick = () => {
-    router.replace("/");
-  };
+  const [selectedRating, setSelectedRating] = useState<number>();
 
-  const totalRatingValue =
-    Array.isArray(ratings) && ratings.length
-      ? ratings.reduce((accumulator, rating) => accumulator + rating.value, 0) /
-        ratings.length
-      : 0;
+  const handleBackClick = useCallback(() => {
+    router.replace("/");
+  }, [router]);
+
+  const totalRatingValue = useMemo(() => {
+    if (ratings?.length) {
+      return (
+        ratings.reduce(
+          (accumulator, rating) => accumulator + Number(rating.value),
+          0
+        ) / ratings.length
+      );
+    }
+    return 0;
+  }, [ratings]);
+
+  const onClickStar = useCallback((index: number) => {
+    setSelectedRating((oldState) => (oldState === index ? undefined : index));
+  }, []);
+
+  const handleConfirmRating = useCallback(() => {
+    if (selectedRating !== undefined) {
+      // Add logic to send the selectedRating to the database
+      saveRating({
+        value: selectedRating + 1, // Pass the number of stars (+1 because index is 0-based)
+        userId: session.data?.user?.id as string, // Replace with actual user ID,
+        barbershopId: barbershop.id,
+      });
+      refreshBarbershop();
+    }
+  }, [selectedRating, session, barbershop]);
 
   return (
     <div>
@@ -62,17 +102,55 @@ const BarbershopInfo = ({ barbershop, ratings }: BarbershopInfoProps) => {
           className="opacity-75"
         />
       </div>
-      <div className="px-5 pt-3 pb-6 border-b border-solid border-secondary ">
-        <h1 className="text-xl font-bold">{barbershop.name}</h1>
-        <div className="flex items-cente gap-1 mt-2">
-          <MapPinIcon className="text-primary " size={18} />
-          <p className="text-sm">{barbershop.address}</p>
+      <div className="flex justify-between border-b border-solid border-secondary">
+        <div className="px-5 pt-3 pb-6 ">
+          <h1 className="text-xl font-bold">{barbershop.name}</h1>
+          <div className="flex  gap-1 mt-2">
+            <MapPinIcon className="text-primary " size={18} />
+            <p className="text-sm">{barbershop.address}</p>
+          </div>
+
+          <div className="flex gap-1 mt-2">
+            <StarIcon className="text-primary " size={18} />
+            <p className="text-sm">
+              {totalRatingValue.toFixed(1)} ({ratings?.length || 0}) Avaliações
+            </p>
+          </div>
         </div>
-        <div className="flex items-cente gap-1 mt-2">
-          <StarIcon className="text-primary " size={18} />
-          <p className="text-sm">
-            {totalRatingValue} ({ratings?.length || 0}) Avaliações
-          </p>
+
+        <div className="px-5 pt-3 pb-6 flex items-center ">
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button>Deixe sua avaliação</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle className="text-center border-b border-solid border-secondary p-6">
+                  Deixe sua Avaliação
+                </DialogTitle>
+              </DialogHeader>
+              <div className="flex items-center flex-col gap-4 justify-center mt-2">
+                <div>
+                  {items.map((index) => (
+                    <RateBarbershop
+                      onClick={() => onClickStar(index)}
+                      key={`star_${index}`}
+                      isActive={index <= selectedRating!}
+                    />
+                  ))}
+                </div>
+                <DialogClose asChild>
+                  {selectedRating !== undefined && (
+                    <div>
+                      <Button onClick={handleConfirmRating}>
+                        Confirmar Avaliação
+                      </Button>
+                    </div>
+                  )}
+                </DialogClose>
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
     </div>

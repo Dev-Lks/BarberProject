@@ -34,7 +34,7 @@ model Barbershop {
 
 model Rating {
   id           String     @id @default(cuid())
-  value        Int
+  value        Decimal    @db.Decimal(10, 2)
   userId       String
   user         User       @relation(fields: [userId], references: [id])
   barbershopId String

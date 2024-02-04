@@ -19,7 +19,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   bookings      Booking[]
-  ratingsGiven  Ratings[]
+  ratings       Rating[]
 }
 
 model Barbershop {
@@ -29,16 +29,16 @@ model Barbershop {
   imageUrl String
   services Service[]
   bookings Booking[]
-  Ratings  Ratings[]
+  ratings  Rating[]
 }
 
-model Ratings {
-  id           Int        @id @default(autoincrement())
-  rating       Decimal
-  barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
-  barbershopId String
+model Rating {
+  id           String     @id @default(cuid())
+  value        Int
   userId       String
   user         User       @relation(fields: [userId], references: [id])
+  barbershopId String
+  barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
 }
 
 model Service {

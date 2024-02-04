@@ -95,11 +95,13 @@ async function seedDatabase() {
         name: "Hidratação",
         description: "Hidratação profunda para cabelo e barba.",
         price: 252.0,
-        imageUrl: "https://utfs.io/f/c4919193-a675-4c47-9f21-ebd86d1c8e6a-4oen2a.png",
+        imageUrl:
+          "https://utfs.io/f/c4919193-a675-4c47-9f21-ebd86d1c8e6a-4oen2a.png",
       },
     ];
 
     // Criar 10 barbearias com nomes e endereços fictícios
+
     const barbershops = [];
     for (let i = 0; i < 10; i++) {
       const name = creativeNames[i];
@@ -111,6 +113,17 @@ async function seedDatabase() {
           name,
           address,
           imageUrl: imageUrl,
+        },
+      });
+      barbershops.push(barbershop);
+    }
+
+    for (const barbershop of barbershops) {
+      await prisma.rating.create({
+        data: {
+          value: Math.floor(Math.random() * 5) + 1,
+          userId: "cls7chty6000520cwx78upngv", // Replace with a real user id
+          barbershopId: barbershop.id,
         },
       });
 
@@ -129,14 +142,11 @@ async function seedDatabase() {
           },
         });
       }
-
-      barbershops.push(barbershop);
     }
 
-    // Fechar a conexão com o banco de dados
     await prisma.$disconnect();
   } catch (error) {
-    console.error("Erro ao criar as barbearias:", error);
+    console.error("Error creating barbershops and ratings:", error);
   }
 }
 

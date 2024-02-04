@@ -5,8 +5,10 @@ import { Button } from "@/app/_components/ui/button";
 import { Card, CardContent } from "@/app/_components/ui/card";
 import { Barbershop } from "@prisma/client";
 import { StarIcon } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 interface BarbershopItemProps {
   barbershop: Barbershop;
@@ -14,8 +16,14 @@ interface BarbershopItemProps {
 
 const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
   const router = useRouter();
+  const { data: session } = useSession();
+
   const handleBookingClick = () => {
-    router.push(`/barbershops/${barbershop.id}`);
+    if (session) {
+      router.push(`/barbershops/${barbershop.id}`);
+    } else {
+      toast.warning("Faça o login para agendar");
+    }
   };
   return (
     <Card className="min-w-[167px] max-w-[167px] rounded-2xl ">
@@ -46,6 +54,7 @@ const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
           <p className=" text-sm text-gray-400 truncate">
             {barbershop.address}
           </p>
+
           <Button
             onClick={handleBookingClick}
             variant="secondary"

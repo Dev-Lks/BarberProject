@@ -3,12 +3,17 @@
 import { Card, CardContent } from "./ui/card";
 import Image from "next/image";
 import { Button } from "./ui/button";
-import { MenuIcon } from "lucide-react";
+import { LogInIcon, LogOutIcon, MenuIcon, UserIcon } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import SideMenu from "./side-menu";
 import Link from "next/link";
+import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
+import { signOut, signIn, useSession } from "next-auth/react";
 
 const Header = () => {
+  const { data } = useSession();
+  const handleLogoutClick = () => signOut();
+  const handleLoginClick = () => signIn("google");
   return (
     <header>
       <Card>
@@ -17,9 +22,47 @@ const Header = () => {
             <Image src="/logo.png" alt="Logo teste" height={1} width={25} />
           </Link>
 
+          <div className="hidden lg:block">
+            {data?.user ? (
+              <div className="flex justify-between items-center px-2 py-3 gap-3">
+                <div className="flex items-center gap-3">
+                  <Avatar className="h-10 w-10">
+                    <AvatarImage
+                      className="rounded-full"
+                      src={data.user?.image ?? "a"}
+                    />
+                  </Avatar>
+                  <h2 className="font-bold">{data.user.name}</h2>
+                </div>
+
+                <Button
+                  onClick={handleLogoutClick}
+                  size="icon"
+                  variant="secondary"
+                >
+                  <LogOutIcon />
+                </Button>
+              </div>
+            ) : (
+              <div className="flex items-center px-2 py-3 gap-3">
+                <div className="flex items-center gap-2 ">
+                  <UserIcon size={32} />
+                </div>
+                <Button
+                  onClick={handleLoginClick}
+                  variant="secondary"
+                  className="w-full justify-start"
+                >
+                  <LogInIcon className="mr-2" size={18} />
+                  Fazer Login
+                </Button>
+              </div>
+            )}
+          </div>
+
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="outline" size="icon">
+              <Button className="lg:hidden" variant="outline" size="icon">
                 <MenuIcon size={16} />
               </Button>
             </SheetTrigger>

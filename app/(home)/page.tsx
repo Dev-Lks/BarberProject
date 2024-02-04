@@ -42,7 +42,9 @@ export default async function Home() {
 
       <div className="px-5 pt-5 ">
         {session?.user ? (
-          <h2 className="text-xl font-bold">Olá, {session?.user?.name?.split(" ")[0]}!</h2>
+          <h2 className="text-xl font-bold">
+            Olá, {session?.user?.name?.split(" ")[0]}!
+          </h2>
         ) : (
           <h2 className="text-xl font-bold">Olá. Faça seu Login!</h2>
         )}
@@ -53,22 +55,26 @@ export default async function Home() {
         </p>
       </div>
 
-      <div className="px-5 mt-6">
-        <Search />
-      </div>
-
-      {confirmedBookings.length >= 1 && (
-        <div className=" pt-3">
-          <h2 className="text-xs pl-5 uppercase text-gray-400 font-bold mb-3">
-            Agendamentos
-          </h2>
-          <div className="flex px-5 overflow-x-auto gap-3 [&::-webkit-scrollbar]:hidden [scrollbar-width:none]">
-            {confirmedBookings.map((booking) => (
-              <BookingItem key={booking.id} booking={booking} />
-            ))}
-          </div>
+      <div className="flex flex-col">
+        <div className="px-5 mt-6 lg:w-[35%]">
+          <Search />
         </div>
-      )}
+
+        <div className="lg:max-w-[35%] lg:w-[35%]  ">
+          {confirmedBookings.length >= 1 && (
+            <div className=" pt-3">
+              <h2 className="text-xs pl-5 uppercase text-gray-400 font-bold mb-3">
+                Agendamentos
+              </h2>
+              <div className="flex px-5 overflow-x-auto gap-3 [&::-webkit-scrollbar]:hidden [scrollbar-width:none] lg:gap-5">
+                {confirmedBookings.map((booking) => (
+                  <BookingItem key={booking.id} booking={booking} />
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
 
       <div className="mt-6">
         <h2 className=" px-5 text-xs uppercase text-gray-400 font-bold mb-3">

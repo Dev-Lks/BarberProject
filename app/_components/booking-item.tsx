@@ -48,7 +48,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Card className="min-w-full ">
+        <Card className="min-w-full lg:max-w-[100%]">
           <CardContent className="flex py-0 px-0">
             <div className="flex flex-col gap-2 py-5 pl-5 flex-[3]">
               <Badge

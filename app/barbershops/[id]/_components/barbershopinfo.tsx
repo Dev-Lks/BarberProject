@@ -94,13 +94,12 @@ const BarbershopInfo = ({ barbershop, ratings }: BarbershopInfoProps) => {
             <SideMenu />
           </SheetContent>
         </Sheet>
+
         <Image
           src={barbershop.imageUrl}
-          fill
+          layout="fill"
+          objectFit="cover"
           alt={barbershop.name}
-          style={{
-            objectFit: "cover",
-          }}
           className="opacity-75"
         />
       </div>

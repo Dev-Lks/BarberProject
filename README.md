@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Lkz-Barber
+O Lkz-Barber é um aplicativo para gerenciamento de barbearias. Com ele, você pode agendar serviços, acompanhar horários e manter seus clientes satisfeitos.
 
-## Getting Started
 
-First, run the development server:
+## Funcionalidades
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+#### Agendamento de Serviços: 
+Os clientes podem marcar horários para cortes de cabelo, barba e outros serviços.
+#### Notificações: 
+Receba alertas sobre agendamentos, confirmações e cancelamentos.
+#### Perfil do Cliente: 
+Crie perfis para seus clientes, com histórico de agendamentos.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tecnologias utilizadas
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Frontend
+- [Next.js](https://nextjs.org/) (Framework React para o lado do cliente)
+- [TypeScript](https://www.typescriptlang.org/) (Linguagem de programação)
+- [Tailwind CSS](https://tailwindcss.com/) (Framework de estilos)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Backend
+- [Prisma](https://www.prisma.io/) (ORM para trabalhar com banco de dados)
+- [PostgreSQL](https://www.postgresql.org/) (Sistema de gerenciamento de banco de dados relacional)
+- [NextAuth](https://next-auth.js.org/) (Autenticação para Next.js)
 
-## Learn More
+## UI (User Interface)
+- [Shadcn-ui](https://ui.shadcn.com/) (Biblioteca de Componentes)
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Como Usar
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Instalação:
+ Clone este repositório: **git clone https://github.com/Dev-Lks/BarberProject.git**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+ Instale as dependências: **npm install**
+ 
+ Configure o banco de dados e as variáveis de ambiente.
+## Execução:
+ Inicie o servidor: **npm run dev**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+ Acesse o aplicativo em http://localhost:3000
+
+
+## Autores
+
+- [@Dev-Lks](https://github.com/Dev-Lks)
+

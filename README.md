@@ -1,6 +1,10 @@
 # Lkz-Barber
 O Lkz-Barber é um aplicativo para gerenciamento de barbearias. Com ele, você pode agendar serviços, acompanhar horários e manter seus clientes satisfeitos.
 
+## Deploy
+
+https://barber-project-hdia.vercel.app/
+
 
 ## Funcionalidades
 

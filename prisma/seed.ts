@@ -122,7 +122,7 @@ async function seedDatabase() {
       await prisma.rating.create({
         data: {
           value: Math.floor(Math.random() * 5) + 1,
-          userId: "clujxuyvs0000zu81921wv6x2", // Replace with a real user id
+          userId: "clujya6u100028el1s751fa29", // Replace with a real user id
           barbershopId: barbershop.id,
         },
       });

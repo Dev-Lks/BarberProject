@@ -19,7 +19,9 @@ const Header = () => {
       <Card>
         <CardContent className="p-5 justify-between flex flex-row items-center">
           <Link href={"/"}>
-            <Image src="/logo.png" alt="Logo teste" height={1} width={25} />
+            <p className="text-sm font-extrabold text-white">
+              Barbearia<span className="text-primary">Caio</span>
+            </p>
           </Link>
 
           <div className="hidden lg:block">

@@ -4,33 +4,33 @@
 
 @layer base {
   .dark {
-    --background: 225 9% 9%;
-    --foreground: 210 40% 98%;
+    --background: 230 15% 15%; /* Alterei para um tom mais escuro e profundo */
+    --foreground: 0 0% 100%;   /* Mantive um branco puro para o texto principal */
 
-    --card: 228 9% 11%;
-    --card-foreground: 210 40% 98%;
+    --card: 230 15% 20%;       /* Levemente mais claro que o fundo para destaque */
+    --card-foreground: 0 0% 100%; /* Mantive o branco para o texto do card */
 
-    --popover: 228 9% 11%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 230 15% 20%;    /* Levemente mais claro que o fundo para destaque */
+    --popover-foreground: 0 0% 100%; /* Mantive o branco para o texto do popover */
 
-    --primary: 252 100% 69%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 33 100% 50%;    /* Alterei para um laranja vibrante */
+    --primary-foreground: 0 0% 100%; /* Mantive o branco para o texto em botões primários */
 
-    --secondary: 228 6% 16%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 230 15% 25%;  /* Um tom neutro para elementos secundários */
+    --secondary-foreground: 0 0% 100%; /* Mantive o branco para o texto em elementos secundários */
 
-    --muted: 228 6% 16%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 230 10% 30%;      /* Um tom mais neutro e suave para elementos secundários */
+    --muted-foreground: 0 0% 70%; /* Ajustei para um tom mais claro */
 
-    --accent: 228 6% 16%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 33 100% 50%;     /* Mantive o laranja vibrante para elementos de destaque */
+    --accent-foreground: 0 0% 100%; /* Mantive o branco para o texto em elementos de destaque */
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;  /* Mantive o vermelho para ações destrutivas */
+    --destructive-foreground: 0 0% 100%; /* Mantive o branco para o texto em ações destrutivas */
 
-    --border: 228 6% 16%;
-    --input: 228 6% 16%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 230 15% 25%;     /* Um tom neutro para bordas */
+    --input: 230 15% 20%;      /* Ajustei para um tom mais claro */
+    --ring: 33 100% 50%;       /* Ajustei para o laranja vibrante para foco */
 
     --radius: 0.5rem;
   }
@@ -43,4 +43,4 @@
   body {
     @apply bg-background text-foreground antialiased;
   }
-} 
+}
